@@ -11,7 +11,7 @@ from datetime import datetime
 
 
 valid_genders = ['herr', 'dam']
-valid_tournament_types = ['green', 'black', 'challenger']
+valid_tournament_types = ['grön', 'svart', 'challenger']
 
 
 def parse_args():
@@ -75,8 +75,8 @@ def parse_args():
 def type2star(tournament_type):
     """Return tournament type as star ranking"""
     tournament_map = {
-        'green': '1*',
-        'black': '2*',
+        'grön': '1*',
+        'svart': '2*',
         'challenger': '3*',
     }
 
@@ -86,8 +86,8 @@ def type2star(tournament_type):
 def type2text(tournament_type):
     """Return long text for tournament type"""
     tournament_map = {
-        'green': 'Open Grön',
-        'black': 'Open Svart',
+        'grön': 'Open Grön',
+        'svart': 'Open Svart',
         'challenger': 'Challenger'
     }
 
