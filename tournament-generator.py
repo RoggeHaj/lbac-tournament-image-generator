@@ -11,7 +11,7 @@ from datetime import datetime
 
 
 valid_genders = ['herr', 'dam']
-valid_tournament_types = ['grön', 'svart', 'challenger']
+valid_tournament_types = ['1', '2', '3']
 
 
 def parse_args():
@@ -75,9 +75,9 @@ def parse_args():
 def type2star(tournament_type):
     """Return tournament type as star ranking"""
     tournament_map = {
-        'grön': '1*',
-        'svart': '2*',
-        'challenger': '3*',
+        '1': '1*',
+        '2': '2*',
+        '3': '3*',
     }
 
     return tournament_map[tournament_type]
@@ -86,9 +86,9 @@ def type2star(tournament_type):
 def type2text(tournament_type):
     """Return long text for tournament type"""
     tournament_map = {
-        'grön': 'Open Grön',
-        'svart': 'Open Svart',
-        'challenger': 'Challenger'
+        '1': 'Open Grön',
+        '2': 'Open Svart',
+        '3': 'Challenger'
     }
 
     return tournament_map[tournament_type]
@@ -187,7 +187,7 @@ def select_background(svgdata, gender):
 def write_file(svgdata, args):
     """Write the generated SVG to file"""
     outdir = 'generated-contents'
-    filename = f'{args.date.strftime("%Y-%m-%d")}_{args.gender}'
+    filename = f'{args.date.strftime("%Y-%m-%d")}_{args.gender}_{args.tournament_level}'
     tmpfile = f'{filename}.svg'
     outfile = f'{outdir}{os.sep}{filename}.png'
 
@@ -197,6 +197,7 @@ def write_file(svgdata, args):
         f.write(svgdata)
 
     subprocess.run(['inkscape', '-o', outfile, tmpfile], check=True)
+    print(f'Wrote {outfile}\n')
 
     os.remove(tmpfile)
 
