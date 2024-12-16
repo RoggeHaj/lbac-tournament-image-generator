@@ -50,6 +50,13 @@ def parse_args():
                         required=False
                         )
 
+    parser.add_argument('--no-color',
+                        action='store_true',
+                        dest='skip_color',
+                        help='Do not colorize according to level',
+                        required=False
+                        )
+
     parser.add_argument('--template',
                         action='store',
                         default='tournament_template.svg',
@@ -184,6 +191,28 @@ def select_background(svgdata, gender):
     return ET.tostring(image, encoding='unicode')
 
 
+def select_tint(svgdata, level, skip_color = False):
+    """Select color tint depending on level of tournament"""
+    level_map = {
+        0: 'Tint-Blue',
+        1: 'Tint-Green',
+        2: 'Tint-Black',
+        3: 'Tint-Gold'
+    }
+
+    if skip_color:
+        level = 0
+
+    image = ET.fromstring(svgdata)
+    tint_layer = level_map[int(level)]
+
+    for elm in image.findall('.//*[@id="Background"]/{http://www.w3.org/2000/svg}rect'):
+        if tint_layer == elm.attrib['id']:
+            elm.attrib['style'] = elm.attrib['style'].replace('display:none', 'display:normal')
+
+    return ET.tostring(image, encoding='unicode')
+
+
 def write_file(svgdata, args):
     """Write the generated SVG to file"""
     outdir = 'generated-contents'
@@ -207,6 +236,7 @@ def main():
     args = parse_args()
     svgdata = format_text(args)
     svgdata = select_background(svgdata, args.gender)
+    svgdata = select_tint(svgdata, args.tournament_level, args.skip_color)
 
     write_file(svgdata, args)
 
