@@ -79,7 +79,7 @@ def parse_args():
     return args
 
 
-def type2star(tournament_type):
+def level2star(tournament_type):
     """Return tournament type as star ranking"""
     tournament_map = {
         '1': '1\u2730',
@@ -153,7 +153,7 @@ def date2month(my_date, short = False):
 
 def format_text(args):
     """Swap text anchors from template to proper contents"""
-    n_stars = type2star(args.tournament_level)
+    n_stars = level2star(args.tournament_level)
     uc_tournament_type = type2text(args.tournament_level).upper()
     uc_gender = args.gender.upper()
     weekday = date2weekday(args.date)
