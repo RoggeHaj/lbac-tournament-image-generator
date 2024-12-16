@@ -225,8 +225,9 @@ def write_file(svgdata, args):
     with open(tmpfile, 'w') as f:
         f.write(svgdata)
 
+    # Use Inkscape to produce the SVG
     subprocess.run(['inkscape', '-o', outfile, tmpfile], check=True)
-    print(f'Wrote {outfile}\n')
+    print(f'Wrote {outfile}')
 
     os.remove(tmpfile)
 
