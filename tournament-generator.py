@@ -82,9 +82,9 @@ def parse_args():
 def type2star(tournament_type):
     """Return tournament type as star ranking"""
     tournament_map = {
-        '1': '1*',
-        '2': '2*',
-        '3': '3*',
+        '1': '1\u2730',
+        '2': '2\u2730',
+        '3': '3\u2730',
     }
 
     return tournament_map[tournament_type]
